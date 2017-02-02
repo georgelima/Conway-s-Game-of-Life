@@ -1,7 +1,7 @@
 class Board {
-  constructor(x, y, size, width, height) {
-    this.x = x;
-    this.y = y;
+  constructor(size, width, height) {
+    this.x = 0;
+    this.y = 0;
     this.size = size;
     this.width = width;
     this.height = height;

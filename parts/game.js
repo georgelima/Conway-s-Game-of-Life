@@ -6,8 +6,7 @@ class Game {
     this.nodes = [];
   }
 
-  _runner(lastTime) {
-    let lTime = Date.now();
+  _runner() {
 
     if (this.running === false) {
       return false;
@@ -15,15 +14,9 @@ class Game {
 
     self.requestAnimationFrame(this._runner.bind(this));
 
-    let currentTime = Date.now();
-
-    const elapsedTime = currentTime - lTime;
-
     this._clear();
     this._update();
     this._draw();
-
-    lTime = currentTime;
   }
 
   _clear() {
@@ -31,15 +24,15 @@ class Game {
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  _update(dlt) {
+  _update() {
     this.nodes.forEach((current, idx) => {
 
-      current._update(this, dlt);
+      current._update(this);
 
     });
   }
 
-  _draw(dlt) {
+  _draw() {
     this.nodes.forEach((current, idx) => {
 
       current._draw(this.context);
@@ -49,8 +42,7 @@ class Game {
 
   start() {
     this.running = true;
-    let lastTime = Date.now();
-    this._runner(lastTime);
+    this._runner();
   }
 
   addNode(node) {

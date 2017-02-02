@@ -1,8 +1,9 @@
 let TIME = 0;
 
 const game = new Game();
+// board(sizeOfBoard, cellWidth, cellHeight);
 
-const board = new Board(0, 0, 100, 15, 15);
+const board = new Board(100, 15, 15);
 game.addNode(board);
 
 game.start();
