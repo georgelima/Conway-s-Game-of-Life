@@ -1,9 +1,3 @@
-self.requestAnimationFrame = window.requestAnimationFrame ||
-                               window.webkitRequestAnimationFrame ||
-                               window.mozRequestAnimationFrame ||
-                               window.oRequestAnimationFrame ||
-                               window.msRequestAnimationFrame;
-
 class Game {
   constructor() {
     this.running = false;
@@ -24,10 +18,10 @@ class Game {
     let currentTime = Date.now();
 
     const elapsedTime = currentTime - lTime;
-    
+
     this._clear();
-    this._update(elapsedTime);
-    this._draw(elapsedTime);
+    this._update();
+    this._draw();
 
     lTime = currentTime;
   }
@@ -48,7 +42,7 @@ class Game {
   _draw(dlt) {
     this.nodes.forEach((current, idx) => {
 
-      current._draw(this.context, dlt);
+      current._draw(this.context);
 
     });
   }

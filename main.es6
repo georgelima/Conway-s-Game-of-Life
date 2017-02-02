@@ -1,7 +1,10 @@
 const game = new Game();
+const board = new Board(0, 0, 40, 20, 20);
+game.addNode(board);
+game.start();
 
-const board = new Board(0, 0, Math.floor(800/30), Math.floor(600/30), 30, 30);
 
+// Listeners
 game.canvas.addEventListener('click', (e) => {
   const boardX = Math.floor(e.offsetX / board.width);
   const boardY = Math.floor(e.offsetY / board.height);
@@ -9,11 +12,6 @@ game.canvas.addEventListener('click', (e) => {
   board.getCell(boardX, boardY).isLiving = true;
 });
 
-game.addNode(board);
-
-game.start();
-
-// Listeners
 document.getElementById("stop").disabled = true;
 document.getElementById("start").addEventListener("click", (e) => {
   document.getElementById("start").disabled = true;

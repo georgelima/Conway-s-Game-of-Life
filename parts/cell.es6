@@ -3,7 +3,8 @@ class Cell {
     this.x = x;
     this.y = y;
     this.board = board;
-    this.isLiving = false;
+    this.isLiving = 0.9 < Math.random();
+    this.aliveNeighbors = 0;
   }
 
   _aliveNeighbors() {
@@ -11,13 +12,19 @@ class Cell {
   }
 
   shouldDie() {
+    const livingCells = this.getNeighbors().filter(current => {
+      if (current) {
+        return current.isLiving;
+      }
+    });
+
     // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
-    if (this._aliveNeighbors() < 2)  {
+    if (livingCells.length < 2)  {
       return true;
     }
 
     // Any live cell with more than three live neighbours dies, as if by overpopulation.
-    if (this._aliveNeighbors() > 3) {
+    if (livingCells.length > 3) {
       return true;
     }
 
@@ -25,8 +32,14 @@ class Cell {
   }
 
   shouldBorn() {
+    const livingCells = this.getNeighbors().filter(current => {
+      if (current) {
+        return current.isLiving;
+      }
+    });
+
     // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
-    if (this._aliveNeighbors() === 3) {
+    if (this.isLiving === false && livingCells.length === 3) {
       return true;
     }
 
@@ -35,14 +48,14 @@ class Cell {
 
   getNeighbors() {
     return [
-      this.board.getCell(this.x-1, this.y-1),
-      this.board.getCell(this.x-1, this.y),
-      this.board.getCell(this.x-1, this.y+1),
-      this.board.getCell(this.x, this.y-1),
-      this.board.getCell(this.x, this.y+1),
-      this.board.getCell(this.x+1, this.y-1),
-      this.board.getCell(this.x+1, this.y),
-      this.board.getCell(this.x+1, this.y+1)
+      // this.board.getCell(this.x-1, this.y-1),
+      // this.board.getCell(this.x-1, this.y),
+      // this.board.getCell(this.x-1, this.y+1),
+      // this.board.getCell(this.x, this.y-1),
+      // this.board.getCell(this.x, this.y+1),
+      // this.board.getCell(this.x+1, this.y-1),
+      // this.board.getCell(this.x+1, this.y),
+      // this.board.getCell(this.x+1, this.y+1)
     ];
   }
 }
