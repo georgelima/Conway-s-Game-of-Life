@@ -1,16 +1,5 @@
 let TIME = 0;
 
-const directions = [
-  [-1, -1],
-  [-1, 0],
-  [-1, 1],
-  [0, -1],
-  [0, 1],
-  [1, -1],
-  [1, 0],
-  [1, 1]
-];
-
 class Board {
   constructor(x, y, size, width, height) {
     this.x = x;
@@ -33,16 +22,26 @@ class Board {
       }
       this.cells.push(row);
     }
-    console.log(this.cells);
 
   }
 
-  getCell(x, y) {
-    // think about this
-    x = (this.size + x) % this.size;
-    y = (this.size + y) % this.size;
+  getNeighborsFromCell(x, y) {
+    let rowUp = (y-1 >= 0) ? y-1 : this.size - 1;
+    let rowDown = (y+1 <= this.size - 1) ? y+1 : 0;
+    let leftColumn = (x-1 >= 0) ? x-1 : this.size - 1;
+    let rightColumn = (x+1 <= this.size - 1) ? x+1 : 0;
 
-    return this.cells[x][y];
+    return [
+      this.cells[leftColumn][rowUp],
+      this.cells[x][rowUp],
+      this.cells[rightColumn][rowUp],
+      this.cells[leftColumn][y],
+      this.cells[rightColumn][y],
+      this.cells[leftColumn][[rowDown]],
+      this.cells[x][rowDown],
+      this.cells[rightColumn][rowDown]
+    ];
+
   }
 
   updateNeighborhoods() {
@@ -57,18 +56,12 @@ class Board {
     let cell = this.cells[x][y];
     cell.aliveNeighbors = 0;
 
-    for (let i = 0; i < directions.length; i++) {
-      let direction = directions[i];
-      let dRow = direction[0];
-      let dCol = direction[1];
+    const neighbors = this.getNeighborsFromCell(x, y);
 
-      if (this._isBounds(x + dRow, y + dCol)) {
-
-        let neighbor = this.getCell(dRow + x, y + dCol);
-        if (neighbor.isLiving) {
-          neighbor.aliveNeighbors = neighbor.aliveNeighbors + 1;
-        }
-
+    for (let i = 0; i < neighbors.length; i++)  {
+      let neighbor = neighbors[i];
+      if (neighbor.isLiving === true) {
+        cell.aliveNeighbors++;
       }
     }
 
@@ -118,23 +111,8 @@ class Board {
     TIME += 30;
     if (TIME < 200) return;
 
-    // this.updateNeighborhoods();
-    // this.updateBoard();
-
-    for (let i = 0; i < this.size; i++) {
-
-      // let row = this.cells[i];
-      for (let j = 0; j < this.size; j++) {
-
-        let cell = this.cells[i][j];
-
-        if (cell.shouldBorn()) {
-          cell.isLiving = true;
-        } else if (cell.shouldDie()) {
-          cell.isLiving = false;
-        }
-      }
-    }
+    this.updateNeighborhoods();
+    this.updateBoard();
 
     TIME = 0;
   }
@@ -164,6 +142,7 @@ class Board {
       context.closePath();
       context.stroke();
     }
+
 
     context.fillStyle = '#3498DB';
 

@@ -46,16 +46,21 @@ class Cell {
     return false;
   }
 
-  getNeighbors() {
-    return [
-      // this.board.getCell(this.x-1, this.y-1),
-      // this.board.getCell(this.x-1, this.y),
-      // this.board.getCell(this.x-1, this.y+1),
-      // this.board.getCell(this.x, this.y-1),
-      // this.board.getCell(this.x, this.y+1),
-      // this.board.getCell(this.x+1, this.y-1),
-      // this.board.getCell(this.x+1, this.y),
-      // this.board.getCell(this.x+1, this.y+1)
-    ];
-  }
+  // getNeighbors() {
+  //   let row_above = (y-1 >= 0) ? y-1 : length_y-1; // If current cell is on first row, cell "above" is the last row (stitched)
+  //   let row_below = (y+1 <= length_y-1) ? y+1 : 0; // If current cell is in last row, then cell "below" is the first row
+  //   let column_left = (x-1 >= 0) ? x-1 : length_x - 1; // If current cell is on first row, then left cell is the last row
+  //   let column_right = (x+1 <= length_x-1) ? x+1 : 0; // If current cell is on last row, then right cell is in the first row
+  //
+  //   return [
+  //     current_gen[row_above][column_left].clone(),
+  //     current_gen[row_above][x].clone(),
+  //     current_gen[row_above][column_right].clone(),
+  //     current_gen[y][column_left].clone(),
+  //     current_gen[y][column_right].clone(),
+  //     current_gen[row_below][column_left].clone(),
+  //     current_gen[row_below][x].clone(),
+  //     current_gen[row_below][column_right].clone()
+  //   ];
+  // }
 }

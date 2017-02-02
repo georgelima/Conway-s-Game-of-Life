@@ -1,8 +1,9 @@
 const game = new Game();
-const board = new Board(0, 0, 40, 20, 20);
-game.addNode(board);
-game.start();
 
+const board = new Board(0, 0, 100, 15, 15);
+game.addNode(board);
+
+game.start();
 
 // Listeners
 game.canvas.addEventListener('click', (e) => {
@@ -13,6 +14,7 @@ game.canvas.addEventListener('click', (e) => {
 });
 
 document.getElementById("stop").disabled = true;
+
 document.getElementById("start").addEventListener("click", (e) => {
   document.getElementById("start").disabled = true;
   document.getElementById("stop").disabled = false;

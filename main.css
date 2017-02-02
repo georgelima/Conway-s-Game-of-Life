@@ -9,6 +9,11 @@ html, body {
   background-color: #d7d7d8;
 }
 
+h1 {
+  margin-bottom: 20px;
+  font-family: 'Pacifico', cursive;
+}
+
 .container {
   margin-top: 20px;
   display: flex;
