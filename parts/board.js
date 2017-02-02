@@ -1,5 +1,3 @@
-let TIME = 0;
-
 class Board {
   constructor(x, y, size, width, height) {
     this.x = x;
@@ -18,18 +16,17 @@ class Board {
     for (let i = 0; i < this.size; i++) {
       let row = [];
       for (let j = 0; j < this.size; j++) {
-        row.push(new Cell(i, j, this));
+        row.push(new Cell(i, j));
       }
       this.cells.push(row);
     }
-
   }
 
   getNeighborsFromCell(x, y) {
     let rowUp = (y-1 >= 0) ? y-1 : this.size - 1;
-    let rowDown = (y+1 <= this.size - 1) ? y+1 : 0;
+    let rowDown = (y+1 <= this.size - 1) ? y + 1 : 0;
     let leftColumn = (x-1 >= 0) ? x-1 : this.size - 1;
-    let rightColumn = (x+1 <= this.size - 1) ? x+1 : 0;
+    let rightColumn = (x+1 <= this.size - 1) ? x + 1 : 0;
 
     return [
       this.cells[leftColumn][rowUp],
@@ -41,7 +38,6 @@ class Board {
       this.cells[x][rowDown],
       this.cells[rightColumn][rowDown]
     ];
-
   }
 
   updateNeighborhoods() {
@@ -86,10 +82,6 @@ class Board {
     }
   }
 
-  _isBounds(x, y) {
-    return x >= 0 && x < this.size && y >= 0 && y < this.size;
-  }
-
   _isUnderPop(x, y) {
     let cell = this.cells[x][y];
     return cell.aliveNeighbors < 2;
@@ -108,8 +100,9 @@ class Board {
   _update(game) {
     if (!this.started) return;
 
+    // Cadence frames
     TIME += 30;
-    if (TIME < 200) return;
+    if (TIME < 100) return;
 
     this.updateNeighborhoods();
     this.updateBoard();
@@ -122,11 +115,12 @@ class Board {
 
     context.translate(this.x, this.y);
 
-    context.fillStyle = 'white';
+    context.fillStyle = '#666';
     context.fillRect(0, 0, this.size * this.width, this.size * this.height);
 
     context.fillStyle = 'black';
 
+    // Draw rows and columns of grid
     for (let i = 0, X = 0; i < this.size; i++, X += this.width) {
       context.beginPath();
       context.moveTo(X, 0);
@@ -143,7 +137,7 @@ class Board {
       context.stroke();
     }
 
-
+    // Draw alive cells
     context.fillStyle = '#3498DB';
 
     for (let i = 0; i < this.size; i++) {

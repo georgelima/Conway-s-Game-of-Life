@@ -1,3 +1,5 @@
+let TIME = 0;
+
 const game = new Game();
 
 const board = new Board(0, 0, 100, 15, 15);
@@ -9,8 +11,7 @@ game.start();
 game.canvas.addEventListener('click', (e) => {
   const boardX = Math.floor(e.offsetX / board.width);
   const boardY = Math.floor(e.offsetY / board.height);
-
-  board.getCell(boardX, boardY).isLiving = true;
+  board.cells[boardX][boardY].isLiving = true;
 });
 
 document.getElementById("stop").disabled = true;
