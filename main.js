@@ -1,9 +1,10 @@
+// usada para controlar as repetições
 let TIME = 0;
 
 const game = new Game();
-// board(sizeOfBoard, cellWidth, cellHeight);
 
-const board = new Board(100, 15, 15);
+// board(sizeOfBoard, cellWidth, cellHeight);
+const board = new Board(Math.floor(600/10), 10, 10);
 game.addNode(board);
 
 game.start();

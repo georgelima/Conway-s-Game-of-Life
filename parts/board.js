@@ -3,6 +3,7 @@ class Board {
     this.x = 0;
     this.y = 0;
     this.size = size;
+    // largura e altura de cada bloco da grid
     this.width = width;
     this.height = height;
 
@@ -12,6 +13,7 @@ class Board {
     this._init();
   }
 
+  // inicializa a matriz com as células
   _init() {
     for (let i = 0; i < this.size; i++) {
       let row = [];
@@ -22,6 +24,7 @@ class Board {
     }
   }
 
+  // retorna os 8 vizinhos diretos da célula na posição (x, y)
   getNeighborsFromCell(x, y) {
     let rowUp = (y-1 >= 0) ? y-1 : this.size - 1;
     let rowDown = (y+1 <= this.size - 1) ? y + 1 : 0;
@@ -40,6 +43,7 @@ class Board {
     ];
   }
 
+  // itera sobre todas as células atualizando a quantidade de vizinhos vivos
   updateNeighborhoods() {
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
@@ -48,6 +52,7 @@ class Board {
     }
   }
 
+  // atualiza os vizinhos vivos de uma célula na posição (x, y)
   _updateNeighborhoodFromCell(x, y) {
     let cell = this.cells[x][y];
     cell.aliveNeighbors = 0;
@@ -62,7 +67,8 @@ class Board {
     }
 
   }
-
+  // verifica as condições de vida ou morte de uma célula em (x, y)
+  // e atualiza seu estado
   _updateCells(x, y) {
     let cell = this.cells[x][y];
 
@@ -74,6 +80,7 @@ class Board {
 
   }
 
+  // itera sobre todas as células do quadro atualizado seus estados
   updateBoard() {
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
@@ -82,6 +89,7 @@ class Board {
     }
   }
 
+  // condições de nascimento ou  morte
   _isUnderPop(x, y) {
     let cell = this.cells[x][y];
     return cell.aliveNeighbors < 2;
@@ -97,6 +105,7 @@ class Board {
     return !cell.isLiving && cell.aliveNeighbors === 3;
   }
 
+  // chamada a cada frame da animação atualiza o estado do game
   _update(game) {
     if (!this.started) return;
 
@@ -110,6 +119,7 @@ class Board {
     TIME = 0;
   }
 
+  // responsável por renderizar os elementos do quadro
   _draw(context) {
     context.save();
 
@@ -137,7 +147,7 @@ class Board {
       context.stroke();
     }
 
-    // Draw alive cells
+    // desenha as células vivas
     context.fillStyle = '#3498DB';
 
     for (let i = 0; i < this.size; i++) {
