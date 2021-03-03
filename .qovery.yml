@@ -1,0 +1,15 @@
+---
+application:
+  name: "conway-s-game-of-life"
+  project: "vanna-gg-test"
+  organization: "QoveryCommunity"
+databases:
+- type: "REDIS"
+  name: "vanna-gg-test-redis"
+  version: "5"
+routers:
+- name: "main-conway-s-game-of-life"
+  routes:
+  - application_name: "conway-s-game-of-life"
+    paths:
+    - "/*"
